@@ -1,0 +1,7 @@
+shah deep b
+xyz abc mimnxnnx
+
+   do {
+      ch = fgetc(fp);
+      putchar(ch);
+   } while (ch != EOF);
