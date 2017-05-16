@@ -1,37 +1,46 @@
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <string.h>
-#include <linux/stat.h>
+#include <time.h>
 
-#define FIFO_FILE "MYFIFO"
+#define MSGSZ 128
 
-int main(void)
+typedef struct msgbuf {
+    long    mtype;
+    char    mtext[MSGSZ];
+} message_buf;
+struct msqid_ds mq;
+int main(int argc, char const *argv[])
 {
-        FILE *fp,*fp2;
-        int i;
-        char readbuf[80];
-        mkfifo(FIFO_FILE, S_IFIFO|0666);
+     int n=0;
 
-        while(1)
-        {       printf("hello at server\n");
-                fp = fopen(FIFO_FILE, "r");
-                fgets(readbuf, 80, fp);
-                if(strlen(readbuf)==0)
-                printf("no data received\n");
-            
-                else
-                {
-                        printf("Received string: %s\t\n", readbuf);
-                        fp2 = fopen(readbuf,"r");
-                       while(fgets(readbuf,10,fp2))
-                                {
-                                printf("%s",readbuf);                           
-                                }
-                        fclose(fp);
-                }
+    FILE *fp;
+        //sleep(1);
+     message_buf  rbuf;
+     int msqid,msqid1;
+     if ((msqid = msgget(123,IPC_CREAT| 0666)) < 0) {
+        exit(1);
+    }
+  
+    while(1)
+    {
+        {
+        for (int i = 0; i <=5; i++)
+        {
+            if (msgrcv(msqid, &rbuf, MSGSZ, i, 0) < 0)
+            {
+               // break;
+            }
+            else
+            {
+                printf("received file from client is \t%s\n",rbuf.mtext);
+            }
+
         }
-
-        return(0);
+        
+       }
+    }
+    return 0;
 }
