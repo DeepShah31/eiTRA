@@ -18,7 +18,7 @@ void sigproc()
 }
  
 void abortproc()
-{ 		 printf("abort\n");
+{ 		 printf("abort signal\n");
 }
 
 

@@ -3,6 +3,7 @@
 #include <pthread.h>
 #define NUM_THREADS 3
 pthread_t tid[NUM_THREADS]; 
+pthread_mutex_t m;
 //Create a basic structure for NODE from which new nodes can be created.
 struct node
 {
@@ -89,7 +90,7 @@ for (int i=1; i<NUM_THREADS; i++) {
 void insert_front()
 {
     int data_value;
-
+pthread_mutex_lock(&m);
     printf("\nEnter data of the node: ");
     scanf("%d", &data_value);
 
@@ -107,7 +108,7 @@ void insert_front()
     	header=temp;
     	count++;
     }
-    
+    pthread_mutex_unlock(&m);
 }
 
 //Function to insert a node at the end of a single linked list.
@@ -163,8 +164,9 @@ void insert_any()
 }
 	void delete(void * p)
 	{
-        int position = (int )p;
-    
+       pthread_mutex_lock(&m);
+        int position = 1;
+        printf("position = %d\n",position );
     // printf("\nEnter data of the node:to be deteted ");
     // scanf("%d", &data_value);
     // if(header->data==data_value)
@@ -191,6 +193,7 @@ void insert_any()
     free(temp->link);  // Free memory
  
     temp->link = link;  // Unlink the deleted node from list
+        pthread_mutex_unlock(&m);
 
 	}
 //Function to display the contents of the linked list.

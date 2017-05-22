@@ -38,13 +38,13 @@ void *send(void *name)
           (void) strcpy(sbuf.mtext,file[n]);
           
           buf_length = strlen(sbuf.mtext) + 1 ;
-          printf("%s\n",sbuf.mtext );
+          //printf("%s\n",sbuf.mtext );
           if (msgsnd(msqid, &sbuf, buf_length, IPC_NOWAIT) < 0) 
           {
         exit(1);
       }
       else
-        printf("send=%s-%d\n",file[n],n);
+        printf("send=%s\n",file[n]);
         pthread_mutex_unlock(&lock);
 }
 int main(int argc, char const *argv[])

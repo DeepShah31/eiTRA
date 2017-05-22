@@ -40,10 +40,10 @@ void *insert()
 	}
 	else
 	{
-    pthread_mutex_lock(&m);
+   // pthread_mutex_lock(&m);
 	queue_array[front++] = '@';//increment the front and store in array
 	printf("producer:%d\n",front);
-  pthread_mutex_unlock(&m);
+  //pthread_mutex_unlock(&m);
 	}
     }
 } 
@@ -52,7 +52,7 @@ void *delete()
 {
    while(1)
    {
-	pthread_mutex_lock(&m);
+	//pthread_mutex_lock(&m);
         if (front == - 1)
     	{
         printf("Queue Underflow \n");
@@ -62,6 +62,6 @@ void *delete()
     	{
         printf("consumer: %d\n",front--);
     	}
-   	pthread_mutex_unlock(&m);
+   	//pthread_mutex_unlock(&m);
    }
 } 

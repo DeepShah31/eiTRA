@@ -32,8 +32,7 @@ main(int argc, char **argv)
 char *cmd1[] = { "/bin/ls", NULL };
 char *cmd2[] = { "/usr/bin/sort",NULL};
 
-void
-runpipe(int pfd[])
+void runpipe(int pfd[])
 {
 	int pid;
 

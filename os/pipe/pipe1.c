@@ -7,6 +7,8 @@ int pipe_fd[2];
 void open_pipe(int *fd){
 	if(pipe(fd) == -1)
 		perror("could not open pipe");
+	else
+		printf("pipe is created\n");
 }
 
 int main(int argc, char *argv[]){
